@@ -40,19 +40,9 @@ defmodule Recaptcha.Http do
   @timeout Application.compile_env(:recaptcha, :timeout, 5000)
   @spec request_verification(binary, Keyword.t) :: {:ok, map} | {:error, [atom]}
   def request_verification(body, options \\ []) do
-<<<<<<< Updated upstream
     timeout = options[:timeout] || @timeout
     url = @verify_url
     json = @json_lib
-||||||| Stash base
-    timeout = options[:timeout] || Config.get_env(:recaptcha, :timeout, 5000)
-    url = Config.get_env(:recaptcha, :verify_url, @default_verify_url)
-    json = Application.get_env(:recaptcha, :json_library, Jason)
-=======
-    timeout = options[:timeout] || Config.get_env(:recaptcha, :timeout, 5000)
-    url = Config.get_env(:recaptcha, :verify_url, @default_verify_url)
-    json = Application.compile_env(:recaptcha, :json_library, Jason)
->>>>>>> Stashed changes
 
     opts = [{:timeout, timeout} | options]
     result =
