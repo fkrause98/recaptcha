@@ -10,7 +10,6 @@ defmodule Recaptcha.Http do
     {"Accept", "application/json"}
   ]
 
-  @default_verify_url "https://www.google.com/recaptcha/api/siteverify"
 
   @doc """
   Sends an HTTP request to the reCAPTCHA version 2.0 API.
@@ -36,11 +35,14 @@ defmodule Recaptcha.Http do
       })
 
   """
+  @json_lib Application.compile_env(:recaptcha, :json_library, Jason)
+  @verify_url Application.compile_env(:recaptcha, :verify_url, "https://www.google.com/recaptcha/api/siteverify")
+  @timeout Application.compile_env(:recaptcha, :timeout, 5000)
   @spec request_verification(binary, Keyword.t) :: {:ok, map} | {:error, [atom]}
   def request_verification(body, options \\ []) do
-    timeout = options[:timeout] || Config.get_env(:recaptcha, :timeout, 5000)
-    url = Config.get_env(:recaptcha, :verify_url, @default_verify_url)
-    json = Application.get_env(:recaptcha, :json_library, Jason)
+    timeout = options[:timeout] || @timeout
+    url = @verify_url
+    json = @json_lib
 
     opts = [{:timeout, timeout} | options]
     result =
