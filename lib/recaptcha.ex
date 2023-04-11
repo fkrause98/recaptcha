@@ -28,6 +28,8 @@ defmodule Recaptcha do
   @spec verify(String.t(), Keyword.t()) ::
             {:ok, Response.t()} | {:error, [atom]}
   def verify(response, options \\ []) do
+    IO.inspect(response, label: :RESPONSE)
+    IO.inspect(options, label: :RESPONSE)
     verification =
       @http_client.request_verification(
         request_body(response, options),

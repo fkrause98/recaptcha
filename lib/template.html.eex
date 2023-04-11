@@ -37,7 +37,7 @@
     data-tabindex="<%= @options[:tabindex] %>"
     data-size="<%= @options[:size] %>"
     data-badge="<%= @options[:badge] %>"
-    data-callback="<%= @callback %>">
+    data-callback="<%= @options[:callback] %>">
 </div>
 
 <%= if @options[:noscript] do %>

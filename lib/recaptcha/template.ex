@@ -40,10 +40,12 @@ defmodule Recaptcha.Template do
 
     options_dict = Keyword.put(options, :onload, onload)
 
-    render_template(%{
-      public_key: public_key,
-      callback: callback,
-      options: options_dict
-    })
+    render_params =
+      %{
+        public_key: public_key,
+        callback: callback,
+        options: options_dict
+      }
+    render_template(render_params)
   end
 end
